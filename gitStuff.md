@@ -59,6 +59,20 @@ I was not able to successfully use https cloning, so I resorted to using git ssh
 - <code>git add .</code>
 - <code>git commit -m "XXX"</code>
 - <code>git push</code>
+    ```
+    PS C:\NYU\2023 fall\webDevel> git push 
+    Enter passphrase for key '/c/Users/Ian McCullough/.ssh/id_ed25519': 
+    Enumerating objects: 4, done.
+    Counting objects: 100% (4/4), done.
+    Delta compression using up to 8 threads
+    Compressing objects: 100% (3/3), done.
+    Writing objects: 100% (3/3), 1.26 KiB | 1.26 MiB/s, done.
+    Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+    remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+    To github.com:IanMcCullough123/webDevel.git
+        f981036..06aa370  main -> main
+    ```
+    - <b>NOTE: SSH passphrase for key - 1214
 
 
 ## References
