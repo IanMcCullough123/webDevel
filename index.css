@@ -58,3 +58,7 @@ img {
     text-decoration: none;
     color: white;
 }
+
+a {
+    color: inherit;
+}

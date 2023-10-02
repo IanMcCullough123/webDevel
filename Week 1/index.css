@@ -48,3 +48,8 @@ img {
     width: 450px;
     /* margin: 10px; */
 }
+
+a {
+    text-decoration: none;
+    color: inherit;
+}

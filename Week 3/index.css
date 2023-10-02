@@ -36,6 +36,11 @@ nav a:hover {
     color: #ff1414;
 }
 
+a {
+    /* text-decoration: none; */
+    color: inherit;
+}
+
 h1 {
     font-size: 36px;
 }
@@ -78,6 +83,11 @@ footer p {
     margin-top: 10px;
     margin: 20px; 
 }
+
+.row:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s ease-in-out;
+  }
 
 .right-column {
     flex: 1;
