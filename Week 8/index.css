@@ -22,7 +22,7 @@
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Updated to display 4 flex boxes per row */
+    grid-template-columns: repeat(4, 1fr); 
     gap: 10px;
     margin-bottom: 70px;
   }
@@ -32,7 +32,6 @@
     padding: 20px;
     cursor: pointer;
     font-size: 20px;
-    /* width: calc(25% - 10px); */
     border: 2px solid #ccc;
     border-radius: 8px;
     background-color: #0d3166;
@@ -54,7 +53,6 @@
   .team-turn {
     font-size: 30px;
     font-weight: bold;
-    /* margin-top: 20px; */
     padding: 10px;
     margin-left: 90px;
     margin-right: 90px;
