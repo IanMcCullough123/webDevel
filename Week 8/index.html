@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="index.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+  <h1>Jeopardy</h1>
+  <h2>Web 2.0 Episode</h2>
+  <div class="container">
+    <div id="grid" class="grid"></div>
+  </div>
+
+  <div class="team-info">
+    <div class="score" id="team-1-score">Team 1 Score: $0</div>
+    <div class="team-turn" id="team-turn">Team 1's Turn</div>
+    <div class="score" id="team-2-score">Team 2 Score: $0</div>
+  </div>
+
+  <button id="refresh-button" onclick="refreshGame()">Refresh Game</button>
+
+  <script>
+    const q_values = [
+      ['Web 2.0 Fundamentals', 'In-class Films', 'Cloud Computing', 'JavaScript Features'],
+      [250, 250, 250, 250],
+      [500, 500, 500, 500],
+      [750, 750, 750, 750],
+      [1000, 1000, 1000, 1000],
+    ];
+
+    const q_labels = [
+      ['','','',''],
+      ['What does AJAX stand for?', 
+      'A term for this model of economics that tracks where everyone goes by big tech.', 
+      'What does "SaaS" stand for in cloud computing?', 
+      'What does "DOM" stand for in JavaScript?'],
+      ['Web 2.0 encourages the use of web services and APIs for integration. What does "API" stand for?', 
+      'Facebook founder played by Andrew Garfield in The Social Network', 
+      'Which company offers AWS, a popular cloud platform?', 
+      'Which operator is used for strict equality in JavaScript?'],
+      ['What kind of content does Web 2.0 emphasize the importance of?', 
+      'In "The Social Dilemma," what term is used to describe the constant stream of content designed to keep users engaged?', 
+      'The clouds ability to manage workloads by increasing or decreasing resources per the demand describes...', 
+      'What does JSON stand for in JavaScript?'],
+      ['Which Web 2.0 platform is known for microblogging?', 
+      'You dot get to 500 million friends without...?', 
+      'Providers serve multiple clients, customers or “tenants” with provisional and scalable services through...', 
+      'Which JavaScript feature is used to handle asynchronous operations and callbacks?'],
+    ];
+
+    const q_answers = [
+      ['','','',''],
+      ['Asynchronous JavaScript And XML', 'Surveillance Capitalism', 'Software as a Service', 'Document Object Model'],
+      ['Application Programming Interface', 'Eduardo Saverin', 'Amazon', '==='],
+      ['User-generated content', 'The Attention Economy', 'Scalability', 'JavaScript Object Notation'],
+      ['Twitter', 'Making a few enemies', 'Resource Pooling', 'Promises'],
+    ];
+
+    let currentTeam = 1;
+    let team1Score = 0;
+    let team2Score = 0;
+    let used_qs = 0;
+
+    function createGrid() {
+      const gridElement = document.getElementById('grid');
+      for (let i = 0; i < q_values.length; i++) {
+        for (let j = 0; j < q_values[i].length; j++) {
+          const cell = document.createElement('div');
+          cell.className = 'cell';
+          i === 0 ? cell.style.backgroundColor = '#082146' : null;
+          i === 0 ? cell.style.cursor = 'not-allowed' : null;
+          (i > 0) ? cell.textContent = `$${q_values[i][j]}` : cell.textContent = `${q_values[i][j]}`;
+          (i > 0) ? cell.addEventListener('click', () => showQuestion(i, j)) : null;
+          gridElement.appendChild(cell);
+        }
+      }
+    }
+
+    function showQuestion(categoryIndex, questionIndex) {
+      const cell = document.querySelectorAll('.cell')[categoryIndex * q_values[0].length + questionIndex];
+      if (cell.classList.contains('used') || used_qs >= 16) {
+        return;
+      }
+
+      const question = q_labels[categoryIndex][questionIndex];
+      const response = prompt(`Category ${questionIndex + 1} - Question ${categoryIndex} - $${q_values[categoryIndex][questionIndex]}\n\n${question}`);
+
+      if (response === null) {
+        return;
+      }
+
+      cell.classList.add('used');
+      cell.removeEventListener('click', showQuestion);
+      used_qs += 1;
+
+      if (response.toLowerCase() === q_answers[categoryIndex][questionIndex].toLowerCase()) {
+
+        if (currentTeam === 1) {
+          team1Score += q_values[categoryIndex][questionIndex];
+          document.getElementById('team-1-score').textContent = `Team 1 Score: $${team1Score}`;
+        } else {
+          team2Score += q_values[categoryIndex][questionIndex];
+          document.getElementById('team-2-score').textContent = `Team 2 Score: $${team2Score}`;
+        }
+      }
+      else {
+        alert("The correct answer was: " + q_answers[categoryIndex][questionIndex]);
+      }
+
+      if(used_qs <= 15){
+        toggleTeamTurn();
+      }
+      else{
+        if(team1Score > team2Score) {
+            document.getElementById('team-turn').textContent = `Team 1 Wins!`;
+        }
+        else if(team1Score < team2Score) {
+            document.getElementById('team-turn').textContent = `Team 2 Wins!`;
+        }
+        else {document.getElementById('team-turn').textContent = `It's a Tie! WOW!`;}
+      }
+      
+    }
+
+    function toggleTeamTurn() {
+      currentTeam = currentTeam === 1 ? 2 : 1;
+      document.getElementById('team-turn').textContent = `Team ${currentTeam}'s Turn`;
+    }
+
+    function refreshGame() {
+      location.reload();
+    }
+
+    createGrid();
+
+  </script>
+</body>
+</html>
