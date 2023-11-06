@@ -9,6 +9,8 @@
     font-size: 75px;
     margin-top: 50px;
     margin-bottom: 0px;
+    text-decoration: none;
+    color: inherit;
   }
 
   a {
