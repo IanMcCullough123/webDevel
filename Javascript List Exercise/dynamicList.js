@@ -1,34 +1,56 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const addButton = document.getElementById('addElem');
-    const clearButton = document.getElementById('clearList');
-    const inputText = document.getElementById('textInput');
-    const todoList = document.getElementById('todo-list');
-    
-    addButton.addEventListener('click', function () {
-        const text = inputText.value;
-        if (text.trim() !== '') {
-            const listItem = document.createElement('li');
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            listItem.appendChild(checkbox);
-            listItem.appendChild(document.createTextNode(text));
-            todoList.appendChild(listItem);
-            inputText.value = '';d
-        }
-    });
-    
-    clearButton.addEventListener('click', function () {
-        todoList.innerHTML = '';
-    });
+let sectionCount = 0;
 
-    todoList.addEventListener('change', function (e) {
-        if (e.target.tagName === 'INPUT' && e.target.type === 'checkbox') {
-            const listItem = e.target.parentElement;
-            if (e.target.checked) {
-                listItem.style.textDecoration = 'line-through';
-            } else {
-                listItem.style.textDecoration = 'none';
-            }
-        }
-    });
-});
+function addSection() {
+    sectionCount++;
+    const sectionName = prompt('Enter section name:');
+    if (sectionName === null) return;
+    const sectionContainer = document.getElementById('sections-container');
+    const newSection = document.createElement('div');
+    newSection.className = 'section';
+    newSection.innerHTML = `
+        <h2>${sectionName}</h2>
+        <ul id="section${sectionCount}"></ul>
+        <input type="text" id="newTask${sectionCount}" placeholder="Add a task">
+        <button class="addTask" onclick="addTask(${sectionCount})">Add Task</button>
+        <br></br>
+        <button class="remove-section" onclick="removeSection(this)">Remove Section</span>
+    `;
+    sectionContainer.appendChild(newSection);
+}
+
+function addTask(section) {
+    const taskInput = document.getElementById(`newTask${section}`);
+    const taskText = taskInput.value.trim();
+    if (taskText === '') return;
+
+    const taskList = document.getElementById(`section${section}`);
+    const task = document.createElement('li');
+    task.className = 'task';
+    task.innerHTML = `
+        <span>${taskText}</span>
+        <button class="task-mod" onclick="completeTask(this)">Complete</button>
+        <button class="task-mod" onclick="moveUp(this)">Move Up</button>
+    `;
+    taskList.appendChild(task);
+    taskInput.value = '';
+}
+
+function completeTask(button) {
+    const task = button.parentElement;
+    task.remove();
+}
+
+function moveUp(button) {
+    const task = button.parentElement;
+    const section = task.parentElement;
+    const tasks = section.querySelectorAll('.task');
+    const currentIndex = Array.from(tasks).indexOf(task);
+    if (currentIndex > 0) {
+        section.insertBefore(task, tasks[currentIndex - 1]);
+    }
+}
+
+function removeSection(button) {
+    const section = button.parentElement;
+    section.remove();
+}

@@ -1,22 +1,20 @@
-<html>
-    <head>
-        <title>JS List</title>
-        <link rel="stylesheet" href="theStyle.css"> 
-        <script src="dynamicList.js" defer></script>
-    </head>
-    <body>
-        <main id="theMain">
-            <h1>TODO</h1>
-            
-            <label for="name">Add a new TODO Item...</label>
-            <input type="text" id="textInput" required minlength="3" size="15"/></input>
-            
-            <button id="addElem">make line item</button>
-            <button id="clearList">erase list</button>
-
-            <div id="todo-list"></div>
-
-        </main>
-     
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" >
+    <title>Todo List Application</title>
+    <link href="theStyle.css" type="text/css" rel="stylesheet" />
+    <script src="dynamicList.js" defer></script>
+</head>
+<body>
+    <div id="app">
+        <h1>Todo List</h1>
+        <button class="addSection" onclick="addSection()">Add Section</button>
+        
+        <div class="section" id="sections-container">
+            <!-- Sections will be dynamically added here -->
+        </div>
+    </div>
+</body>
 </html>
