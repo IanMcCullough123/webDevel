@@ -1,0 +1,183 @@
+body {
+  font-family: 'Arial', sans-serif;
+  /* font-family: "Courier New", Courier, monospace; */
+  /* background-color: #f0f0f0; */
+  background-image: url("./assets/spacetime.gif");
+  background-size: 25% 25%; 
+  background-repeat: repeat;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 45px;
+  color: #ffffff;
+  text-align: center;
+  border: 3px solid black;
+  border-radius: 3px;
+  background-color: rgb(0, 0, 0);
+  /* position: absolute; */
+  /* top: 50%;
+  left: 50%; */
+}
+
+h2 {
+  padding-left: 8px;
+  padding-right: 10px;
+  align-self: center;
+  font-size: 30px;
+}
+
+p {
+  font-size: 18px;
+  line-height: 1.5;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-bottom: 60px;
+}
+
+
+.nextButton, .prevButton {
+  font-size: 32px;
+  font-weight: 900;
+  padding: 10px 20px;
+  /* background-color: transparent; */
+  color: #000000;
+  margin: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.nextButton {
+  position: fixed;
+  bottom: 10%;
+  right: 1%;
+  /* animation: changeBackgroundColor2 2s infinite; */
+  /* animation-play-state: running; */
+}
+
+.prevButton {
+  position: fixed;
+  bottom: 10%;
+  left: 1%;
+  /* animation: changeBackgroundColor1 2s infinite; */
+  /* animation-play-state: running; */
+}
+
+.prevButton:hover, .nextButton:hover {
+  scale: 1.05;
+  transition: scale 0.3s ease-in-out;
+
+}
+
+
+
+
+
+
+
+
+.image-container {
+  /* position: relative; */
+  width: 80%;
+  /* height: 100vh; */
+  /* overflow: hidden; */
+  /* align-items: center;
+  justify-content: center; */
+}
+
+.image-container img {
+  max-height: 60%;
+  /* max-height: 70%; */
+  object-fit: cover;
+  /* align-self: center; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.text-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
+}
+
+.text-overlay h1 {
+  font-size: 2em;
+  margin: 0;
+}
+
+
+
+
+
+
+.faq-container {
+  display: flex;
+  max-width: 1000px;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* border: 2px black; */
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 50px;
+}
+
+.column {
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.questions {
+  background-color: #000000;
+  color: #fff;
+  font-weight: bold;
+}
+
+.answers {
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: bold;
+
+}
+
+.question {
+  cursor: pointer;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.question:hover {
+  background-color: #2c2c2c;
+}
+
+.answer {
+  display: none;
+  padding: 10px;
+  border-bottom: 1px solid #000000;
+  /* border: 2px black; */
+
+} 
+
+.answer.show {
+  display: block;
+}
+
+.slide2-button {
+  align-self: center;
+}
