@@ -10,7 +10,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
 }
@@ -178,6 +178,46 @@ p {
   display: block;
 }
 
-.slide2-button {
+/* .slide2-button {
   align-self: center;
+  background-color: black;
+  color: white;
+} */
+
+.quote {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 50%;
+  text-align: center;
+  border: 2px black;
+  padding: 15px;
+}
+
+.slide2-button {
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  background-color: #000000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  margin: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.slide2-button:hover {
+  background-color: #1d1d1d;
+  transform: scale(1.05);
+}
+
+.slide2-button:active {
+  transform: scale(0.95);
+}
+
+/* Additional styling for a more professional look */
+.slide2-button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
 }
