@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>week11</title>
+        <link rel="stylesheet" href="index.css"> 
+        <script src="script.js" defer></script>
+    </head>
+<body>
+
+<div id="slideshow-container">
+    <div class="slide">
+        <h2>Ian McCullough</h2>
+        <p>Final Project Proposal</p>
+        <img src="./images/nyc map.jpg">
+    </div>
+    <div class="slide">
+        <h2>Focus...</h2>
+        <p>Incorporating passion for photography + audio design into final project.</p>
+        <img src="./images/cameras.jpeg">
+    </div>
+    <div class="slide">
+        <h2>Artistic Focus..</h2>
+        <p>360 Degree, INTERACTIVE Art.</p>
+        <img src="./images/diagram.jpg">
+    </div>
+    <div class="slide">
+        <h2>Interactivity</h2>
+        <p>Scroll for sweeping effect on single subject.</p>
+        <img src="./images/arrayResult.gif">
+    </div>
+    <div class="slide">
+        <h2>Interactivity Pt. 2</h2>
+        <p>Audio will provide immersive experience.</p>
+        <img src="./images/sounds.jpg">
+    </div>
+    <div class="slide">
+        <h2>Geographic Relevance</h2>
+        <p>Include map of the city with dropped pins to view images.</p>
+        <img src="./images/nyc google.webp">
+    </div>
+
+    <a class="arrow prev" onclick="changeSlide(-1)">&#10094;</a>
+    <a class="arrow next" onclick="changeSlide(1)">&#10095;</a>
+</div>
+
+<script>
+    let currentSlide = 1;
+
+    function showSlide(n) {
+        const slides = document.getElementsByClassName('slide');
+        if (n > slides.length) {
+            currentSlide = 1;
+        }
+        if (n < 1) {
+            currentSlide = slides.length;
+        }
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = 'none';
+        }
+        slides[currentSlide - 1].style.display = 'block';
+    }
+
+    function changeSlide(n) {
+        showSlide(currentSlide += n);
+    }
+
+    showSlide(currentSlide);
+</script>
+
+</body>
+</html>
