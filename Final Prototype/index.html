@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iam331 Final</title>
+  <link href="index.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+  <div class="container">
+    <input type="radio" name="slider" id="item-1" checked>
+    <input type="radio" name="slider" id="item-2">
+    <input type="radio" name="slider" id="item-3">
+    <input type="radio" name="slider" id="item-4">
+    <input type="radio" name="slider" id="item-5">
+    <input type="radio" name="slider" id="item-6">
+    <input type="radio" name="slider" id="item-7">
+
+    <div class="cards">
+      <label class="card" for="item-1" id="song-1">
+        <img src="./images/sounds.jpg" alt="song">
+      </label>
+      <label class="card" for="item-2" id="song-2">
+        <img src="./images/arrayResult.gif" alt="song">
+      </label>
+      <label class="card" for="item-3" id="song-3">
+        <img src="./images/cam rig.webp" alt="song">
+      </label>
+      <label class="card" for="item-4" id="song-4">
+        <img src="./images/cameras.jpeg" alt="song">
+      </label>
+      <label class="card" for="item-5" id="song-5">
+        <img src="./images/diagram.jpg" alt="song">
+      </label>
+      <label class="card" for="item-6" id="song-6">
+        <img src="./images/nyc map.jpg" alt="song">
+      </label>
+      <label class="card" for="item-7" id="song-7">
+        <img src="./images/sounds.jpg" alt="song">
+      </label>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      let currentImage = 1;
+      let isAnimating = false;
+
+      updateCardStyles();
+
+      $(window).on('wheel', function(event) {
+        event.preventDefault();
+
+        if (!isAnimating) {
+          isAnimating = true;
+
+          const totalImages = $('input[name="slider"]').length;
+
+          if (event.originalEvent.deltaY > 0 && currentImage < totalImages) {
+            currentImage++;
+          } else if (event.originalEvent.deltaY < 0 && currentImage > 1) {
+            currentImage--;
+          }
+
+          $(`#item-${currentImage}`).prop('checked', true);
+          updateCardStyles();
+          
+          setTimeout(function() {
+            isAnimating = false;
+          }, 50);
+        }
+      });
+
+      function updateCardStyles() {
+        $(`.card`).each(function(index) {
+          const offset = index - currentImage + 1;
+          const transformValue = `translateX(${offset * 20}%) scale(${1 - Math.abs(offset) * 0.1})`;
+          $(this).css({
+            'transform': transformValue,
+            'opacity': 1 - Math.abs(offset) * 0.3,
+            'z-index': 1 - Math.abs(offset),
+          });
+        });
+      }
+    });
+  </script>
+</body>
+</html>

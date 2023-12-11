@@ -1,89 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iam331 Final</title>
-  <link href="index.css" type="text/css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f4f4f4;
+        }
+
+        #image-slider {
+            padding: 35px;
+            overflow: hidden;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(37, 37, 37, 0.377);
+        }
+
+        img {
+            width: 100%;
+            height: 400px;
+            display: block;
+        }
+
+
+        input[type="range"] {
+            width: 100%;
+            margin-top: 30px;
+            -webkit-appearance: none;
+            border: none;
+            outline: none;
+            border-radius: 15px;
+            background-color: #ecd7ff;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #6329a5;
+            cursor: pointer;
+        }
+
+        #play-button {
+            background-color: #633fa5;
+            color: rgb(255, 255, 255);
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <input type="radio" name="slider" id="item-1" checked>
-    <input type="radio" name="slider" id="item-2">
-    <input type="radio" name="slider" id="item-3">
-    <input type="radio" name="slider" id="item-4">
-    <input type="radio" name="slider" id="item-5">
-    <input type="radio" name="slider" id="item-6">
-    <input type="radio" name="slider" id="item-7">
 
-    <div class="cards">
-      <label class="card" for="item-1" id="song-1">
-        <img src="./images/sounds.jpg" alt="song">
-      </label>
-      <label class="card" for="item-2" id="song-2">
-        <img src="./images/sounds.jpg" alt="song">
-      </label>
-      <label class="card" for="item-3" id="song-3">
-        <img src="./images/sounds.jpg" alt="song">
-      </label>
-      <label class="card" for="item-4" id="song-4">
-        <img src="./images/sounds.jpg" alt="song">
-      </label>
-      <label class="card" for="item-5" id="song-5">
-        <img src="./images/sounds.jpg" alt="song">
-      </label>
-      <label class="card" for="item-6" id="song-6">
-        <img src="./images/sounds.jpg" alt="song">
-      </label>
-      <label class="card" for="item-7" id="song-7">
-        <img src="./images/sounds.jpg" alt="song">
-      </label>
-    </div>
-  </div>
+<div id="image-slider">
+    <img id="slider-image" src="images/image0.jpeg" alt="Image 1">
+    <input type="range" id="slider" min="0" max="5"  step="0.01" value="0">
+    <button id="play-button">Ping</button>
+</div>
 
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      let currentImage = 1;
-      let isAnimating = false;
+<script>
+    const slider = document.getElementById('slider');
+    const sliderImage = document.getElementById('slider-image');
+    const playButton = document.getElementById('play-button');
+    let isPlaying = false;
+    let sliderRight = true;
 
-      updateCardStyles();
-
-      $(window).on('wheel', function(event) {
-        event.preventDefault();
-
-        if (!isAnimating) {
-          isAnimating = true;
-
-          const totalImages = $('input[name="slider"]').length;
-
-          if (event.originalEvent.deltaY > 0 && currentImage < totalImages) {
-            currentImage++;
-          } else if (event.originalEvent.deltaY < 0 && currentImage > 1) {
-            currentImage--;
-          }
-
-          $(`#item-${currentImage}`).prop('checked', true);
-          updateCardStyles();
-          
-          setTimeout(function() {
-            isAnimating = false;
-          }, 0);
-        }
-      });
-
-      function updateCardStyles() {
-        $(`.card`).each(function(index) {
-          const offset = index - currentImage + 1;
-          const transformValue = `translateX(${offset * 20}%) scale(${1 - Math.abs(offset) * 0.1})`;
-          $(this).css({
-            'transform': transformValue,
-            'opacity': 1 - Math.abs(offset) * 0.3,
-            'z-index': 1 - Math.abs(offset),
-          });
-        });
-      }
+    slider.addEventListener('input', () => {
+        updateImage();
     });
-  </script>
+
+    document.addEventListener('wheel', (event) => {
+        if (event.deltaY > 0) {
+            // slider.value = (parseFloat(slider.value) + 0.01).toFixed(2);
+            slider.stepUp(100);
+        } else {
+            // slider.value = (parseFloat(slider.value) - 0.01).toFixed(2);
+            slider.stepDown(100);
+        }
+
+        updateImage();
+    });
+
+    playButton.addEventListener('click', () => {
+        isPlaying = !isPlaying;
+
+        if (isPlaying) {
+            playButton.textContent = 'Pong';
+            autoPlay();
+        } else {
+            playButton.textContent = 'Ping';
+            clearTimeout(autoPlayTimeout);
+        }
+    });
+
+    let autoPlayTimeout;
+
+    function autoPlay() {
+        if (isPlaying) {
+            if (parseFloat(slider.value) === parseFloat(slider.max)) {
+                sliderRight = false;
+            } else if (parseFloat(slider.value) === parseFloat(slider.min)){
+                sliderRight = true;
+            }
+
+            if (sliderRight){
+                slider.stepUp(100);
+            }
+            else {
+                slider.stepDown(100);
+            }
+            
+            updateImage();
+            autoPlayTimeout = setTimeout(autoPlay, 100); 
+        }
+    }
+
+    function updateImage() {
+        const imageNumber = Math.round(slider.value);
+        const imagePath = `images/image${imageNumber}.jpeg`;
+        sliderImage.src = imagePath;
+    }
+</script>
+
 </body>
 </html>
