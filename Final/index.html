@@ -3,131 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Slider</title>
+    <title>Home Page</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-align: center;
-            margin: 50px;
-            background-color: #f4f4f4;
+            margin: 0;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        #image-slider {
-            padding: 35px;
-            overflow: hidden;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(37, 37, 37, 0.377);
-        }
-
-        img {
-            width: 100%;
-            height: 400px;
-            display: block;
-        }
-
-
-        input[type="range"] {
-            width: 100%;
-            margin-top: 30px;
-            -webkit-appearance: none;
-            border: none;
-            outline: none;
-            border-radius: 15px;
-            background-color: #ecd7ff;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #6329a5;
-            cursor: pointer;
-        }
-
-        #play-button {
-            background-color: #633fa5;
+        button {
+            letter-spacing: 2px;
+            font-weight: bold;
+            font-size: 15px;
+            background-color: #747474;
             color: rgb(255, 255, 255);
             padding: 10px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-bottom: 25px;
         }
     </style>
 </head>
 <body>
 
-<div id="image-slider">
-    <img id="slider-image" src="images/image0.jpeg" alt="Image 1">
-    <input type="range" id="slider" min="0" max="5"  step="0.01" value="0">
-    <button id="play-button">Ping</button>
-</div>
+    <!-- <label for="inputValue">Enter a value:</label>
+    <input type="text" id="inputValue" placeholder="Type something..."> -->
 
-<script>
-    const slider = document.getElementById('slider');
-    const sliderImage = document.getElementById('slider-image');
-    const playButton = document.getElementById('play-button');
-    let isPlaying = false;
-    let sliderRight = true;
+    <!-- <button id="home-button" onclick="goToImageDisplay()">View Image Display</button> -->
+    <button onclick="goToImageDisplay(this)" data-value="3840" data-dir="flyingBike" data-num-images="25">
+        Bike Animation
+    </button>
+    <button onclick="goToImageDisplay(this)" data-value="3887" data-dir="church" data-num-images="12">
+        Church Animation
+    </button>
+    
+    
 
-    slider.addEventListener('input', () => {
-        updateImage();
-    });
+    <script>
+        function goToImageDisplay(clickedButton) {
+            // window.location.href = "image-display.html";
+            // var valueToPass = 3887;
+            // var dir = "church";  // Change this to your desired directory
+            // var numImages = 10;       // Change this to the actual number of images
 
-    document.addEventListener('wheel', (event) => {
-        if (event.deltaY > 0) {
-            // slider.value = (parseFloat(slider.value) + 0.01).toFixed(2);
-            slider.stepUp(100);
-        } else {
-            // slider.value = (parseFloat(slider.value) - 0.01).toFixed(2);
-            slider.stepDown(100);
+            var valueToPass = clickedButton.getAttribute("data-value");
+            var dir = clickedButton.getAttribute("data-dir");
+            var numImages = clickedButton.getAttribute("data-num-images");
+
+
+            // Encode the values and append them to the URL
+            var encodedValue = encodeURIComponent(valueToPass);
+            var encodedDir = encodeURIComponent(dir);
+            var encodedNumImages = encodeURIComponent(numImages);
+
+            // Construct the URL with the parameters
+            var url = "image-display.html?value=" + encodedValue + "&dir=" + encodedDir + "&numImages=" + encodedNumImages;
+
+            // Redirect to the image-display.html page
+            window.location.href = url;
         }
-
-        updateImage();
-    });
-
-    playButton.addEventListener('click', () => {
-        isPlaying = !isPlaying;
-
-        if (isPlaying) {
-            playButton.textContent = 'Pong';
-            autoPlay();
-        } else {
-            playButton.textContent = 'Ping';
-            clearTimeout(autoPlayTimeout);
-        }
-    });
-
-    let autoPlayTimeout;
-
-    function autoPlay() {
-        if (isPlaying) {
-            if (parseFloat(slider.value) === parseFloat(slider.max)) {
-                sliderRight = false;
-            } else if (parseFloat(slider.value) === parseFloat(slider.min)){
-                sliderRight = true;
-            }
-
-            if (sliderRight){
-                slider.stepUp(100);
-            }
-            else {
-                slider.stepDown(100);
-            }
-            
-            updateImage();
-            autoPlayTimeout = setTimeout(autoPlay, 100); 
-        }
-    }
-
-    function updateImage() {
-        const imageNumber = Math.round(slider.value);
-        const imagePath = `images/image${imageNumber}.jpeg`;
-        sliderImage.src = imagePath;
-    }
-</script>
+    </script>
 
 </body>
 </html>
