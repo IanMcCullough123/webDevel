@@ -9,7 +9,8 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-align: center;
             margin: 0; /* Remove margin */
-            background-color: #ffffff;
+            /* background-color: #cfcfcf; */
+            background: radial-gradient(circle, #3b382f 15%, #fff 140%);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -53,48 +54,56 @@
             cursor: pointer;
         }
 
-        #play-button {
+        #play-button, #map-button {
             letter-spacing: 2px;
-            font-weight: bold;
-            font-size: 15px;
-            background-color: #747474;
-            color: rgb(255, 255, 255);
+            font-weight: 800;
             padding: 10px;
             border: none;
-            border-radius: 5px;
+            border-radius: 15px;
             cursor: pointer;
             margin-top: 30px;
         }
 
-        #nav-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #e0e0e0;
-            padding: 10px;
-            text-align: center;
+        #play-button {
+        background-color: #5f5f5f;
+        color: #f5f5f5;
+        font-size: 17px;
+        padding: 15px 30px;
+        transition: padding 0.5s ease-in-out;
+        display: inline-block;
+        }
+        
+        #map-button {
+            font-size: 20px;
+            background-color:  #f5f5f5;
+            text-decoration: none;
+            color: rgb(41, 41, 41);
+            margin-top: 0;
+            margin-bottom: 70px;
+            transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out, box-shadow 0.5s ease-in-out; /* Slower and smoother transition for background color and text color */
+            box-shadow: 2px 2px 5px rgba(41, 41, 41, 0.5);
+            padding: 20px 40px;
         }
 
-        #nav-bar a {
-            color: #000000;
-            text-decoration: none;
-            margin: 0 10px;
-            font-weight: bold;
-            font-size: 25px;
+        #map-button:hover {
+            background-color: rgb(75, 75, 75); /* Change the background color on hover */
+            color: #f5f5f5;
+            box-shadow: 1px 1px 3px #a7a7a7; 
         }
         
     </style>
 </head>
 <body>
 
-    <div id="nav-bar">
+    <!-- <div id="nav-bar">
         <a href="index.html">MAP</a>
-    </div>
+    </div> -->
+
+    <a href="index.html" id="map-button">Back 2 Map</a>
 
     <div id="image-slider">
         <img id="slider-image" src="" alt="Image">
-        <input type="range" id="slider" min="1" step="0.01" value="1">
+        <input type="range" id="slider" min="0" step="0.01" value="0">
         <button id="play-button">Ping</button>
     </div>
     
