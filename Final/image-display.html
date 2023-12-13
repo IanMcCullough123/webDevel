@@ -1,21 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Slider</title>
+    <title>Motion</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-align: center;
-            margin: 0; /* Remove margin */
-            /* background-color: #cfcfcf; */
+            margin: 0;
             background: radial-gradient(circle, #3b382f 15%, #fff 140%);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Set body height to viewport height */
+            height: 100vh; 
         }
 
         #image-slider {
@@ -32,7 +30,7 @@
             height: 400px;
             display: block;
             align-self: center;
-            margin-bottom: 20px; /* Add margin for better spacing */
+            margin-bottom: 20px;
         }
 
         input[type="range"] {
@@ -72,7 +70,7 @@
         transition: padding 0.5s ease-in-out;
         display: inline-block;
         }
-        
+
         #map-button {
             font-size: 20px;
             background-color:  #f5f5f5;
@@ -80,13 +78,13 @@
             color: rgb(41, 41, 41);
             margin-top: 0;
             margin-bottom: 70px;
-            transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out, box-shadow 0.5s ease-in-out; /* Slower and smoother transition for background color and text color */
+            transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
             box-shadow: 2px 2px 5px rgba(41, 41, 41, 0.5);
             padding: 20px 40px;
         }
 
         #map-button:hover {
-            background-color: rgb(75, 75, 75); /* Change the background color on hover */
+            background-color: rgb(75, 75, 75);
             color: #f5f5f5;
             box-shadow: 1px 1px 3px #a7a7a7; 
         }
@@ -94,10 +92,6 @@
     </style>
 </head>
 <body>
-
-    <!-- <div id="nav-bar">
-        <a href="index.html">MAP</a>
-    </div> -->
 
     <a href="index.html" id="map-button">Back 2 Map</a>
 
@@ -113,16 +107,20 @@
             return urlParams.get(parameterName);
         }
 
-        // Get the value from the URL
         var passedValue = getParameterValue("value");
         var dir = getParameterValue("dir");
         var numImages = parseInt(getParameterValue("numImages"));
 
         document.getElementById("slider").max = numImages;
 
-        // Display the value at the bottom of the page
-        // var displayedValueElement = document.getElementById("displayedValue");
-        // displayedValueElement.innerHTML = "Value passed from the previous page: " + passedValue;
+        function preloadImages() {
+            for (let i = 0; i <= numImages; i++) {
+                const img = new Image();
+                img.src = `${dir}/IMG_${parseInt(passedValue) + i}.JPG`;
+            }
+        }
+
+        window.addEventListener('load', preloadImages);
 
         var initialImagePath = dir + "/IMG_" + passedValue + ".JPG";
         document.getElementById("slider-image").src = initialImagePath;
